@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+.git/
+# Loại trừ dữ liệu nếu dùng Docker Volume
+data/
+# Loại trừ file môi trường ảo nếu có
+.venv/

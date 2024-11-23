@@ -1,0 +1,9 @@
+train: D:\SOICT_Docker\data\train
+val: D:\SOICT_Docker\data\train
+test:
+
+names:
+  0: motor
+  1: car
+  2: bus
+  3: truck
