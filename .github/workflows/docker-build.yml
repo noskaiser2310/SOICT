@@ -1,6 +1,5 @@
 name: Build and Push Docker Image to DockerHub
 
-# Kích hoạt khi có thay đổi trên nhánh main
 on:
   push:
     branches:
@@ -8,21 +7,18 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
-
+    runs-on: windows-latest  
     steps:
-      # Bước 1: Checkout code từ GitHub
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3 # Phiên bản mới hơn
 
-      # Bước 2: Đăng nhập DockerHub
       - name: Login to DockerHub
-  	run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      # Bước 3: Build Docker Image
-      - name: Build Docker Image
-        run: docker buildx build -f docker/Dockerfile -t noskaiser231000/soict:latest .
-
-      # Bước 4: Push Docker Image lên DockerHub
-      - name: Push Docker Image to DockerHub
-        run: docker push noskaiser231000/soict:latest
+      - name: Build and push Docker Image
+        uses: docker/build-push-action@v4 # Dùng action chính thức của Docker
+        with:
+          context: .
+          file: docker/Dockerfile # Đường dẫn đến Dockerfile
+          push: true
+          tags: noskaiser231000/soict:latest # Tên image và tag
