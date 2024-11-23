@@ -1,0 +1,28 @@
+name: Build and Push Docker Image to DockerHub
+
+# Kích hoạt khi có thay đổi trên nhánh main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Bước 1: Checkout code từ GitHub
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      # Bước 2: Đăng nhập DockerHub
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # Bước 3: Build Docker Image
+      - name: Build Docker Image
+        run: docker build -t noskaiser231000/soict:latest .
+
+      # Bước 4: Push Docker Image lên DockerHub
+      - name: Push Docker Image to DockerHub
+        run: docker push noskaiser231000/soict:latest
