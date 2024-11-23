@@ -21,7 +21,7 @@ jobs:
 
       # Bước 3: Build Docker Image
       - name: Build Docker Image
-        run: docker buildx build -f docker/Dockerfile -t noskaiser231000/soict:latest
+        run: docker buildx build -f docker/Dockerfile -t noskaiser231000/soict:latest .
 
       # Bước 4: Push Docker Image lên DockerHub
       - name: Push Docker Image to DockerHub
